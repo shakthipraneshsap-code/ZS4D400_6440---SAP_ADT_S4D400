@@ -1,0 +1,31 @@
+managed implementation in class zbp_i_aircra_workorder unique;
+strict ( 2 );
+
+define behavior for ZI_AIRCRA_WORKORDER //alias <alias_name>
+persistent table zaircra_wo
+lock master
+authorization master ( instance )
+etag master last_changed_at
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  field ( readonly )
+  workorder_uuid,
+  created_by,
+  created_at,
+  last_changed_by,
+  last_changed_at;
+
+  determination SetDefaultValues
+  on modify { create; }
+
+  validation ValidateEstimateCost
+  on save { create; update; }
+
+  action Approve result [1] $self;
+
+  action Complete result [1] $self;
+
+}

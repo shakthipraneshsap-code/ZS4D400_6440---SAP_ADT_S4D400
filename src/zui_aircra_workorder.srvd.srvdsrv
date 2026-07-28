@@ -1,0 +1,4 @@
+@EndUserText.label: 'Aircraft Work Order Service'
+define service ZUI_AIRCRA_WORKORDER {
+  expose ZC_AIRCRA_WORKORDER as WorkOrder;
+}
