@@ -16,6 +16,14 @@ CLASS lhc_ZI_AIRCRA_WORKORDER DEFINITION INHERITING FROM cl_abap_behavior_handle
       IMPORTING keys FOR ACTION zi_aircra_workorder~Complete RESULT result.
     METHODS ValidateEstimateCost FOR VALIDATE ON SAVE
       IMPORTING keys FOR zi_aircra_workorder~ValidateEstimateCost.
+    METHODS ValidateAircraft FOR VALIDATE ON SAVE
+      IMPORTING keys FOR zi_aircra_workorder~ValidateAircraft.
+
+    METHODS ValidateComponent FOR VALIDATE ON SAVE
+      IMPORTING keys FOR zi_aircra_workorder~ValidateComponent.
+
+    METHODS ValidateScheduleDate FOR VALIDATE ON SAVE
+      IMPORTING keys FOR zi_aircra_workorder~ValidateScheduleDate.
 
 ENDCLASS.
 
@@ -26,6 +34,7 @@ CLASS lhc_ZI_AIRCRA_WORKORDER IMPLEMENTATION.
 
   METHOD get_global_authorizations.
   ENDMETHOD.
+
 
   METHOD SetDefaultValues.
 
@@ -68,6 +77,7 @@ CLASS lhc_ZI_AIRCRA_WORKORDER IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD Approve.
 
     READ ENTITIES OF zi_aircra_workorder IN LOCAL MODE
@@ -78,6 +88,23 @@ CLASS lhc_ZI_AIRCRA_WORKORDER IMPLEMENTATION.
 
 
     LOOP AT lt_workorders ASSIGNING FIELD-SYMBOL(<fs_workorders>).
+
+
+      IF <fs_workorders>-status <> zif_aircra_constants=>gc_status_new.
+
+        APPEND VALUE #( %tky = <fs_workorders>-%tky ) TO failed-zi_aircra_workorder.
+
+        APPEND VALUE #(
+            %tky = <fs_workorders>-%tky
+            %msg = new_message(
+                        id       = 'ZAIRCRA_MSG'
+                        number   = '005'
+                        severity = if_abap_behv_message=>severity-error )
+                         ) TO reported-zi_aircra_workorder.
+
+        CONTINUE.
+
+      ENDIF.
 
       <fs_workorders>-status = zif_aircra_constants=>gc_status_approved.
 
@@ -104,6 +131,7 @@ CLASS lhc_ZI_AIRCRA_WORKORDER IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD Complete.
 
     READ ENTITIES OF zi_aircra_workorder IN LOCAL MODE
@@ -114,6 +142,22 @@ CLASS lhc_ZI_AIRCRA_WORKORDER IMPLEMENTATION.
 
 
     LOOP AT lt_workorders ASSIGNING FIELD-SYMBOL(<fs_workorders>).
+
+      IF <fs_workorders>-status <> zif_aircra_constants=>gc_status_approved.
+
+        APPEND VALUE #( %tky = <fs_workorders>-%tky ) TO failed-zi_aircra_workorder.
+
+        APPEND VALUE #(
+            %tky = <fs_workorders>-%tky
+            %msg = new_message(
+                        id       = 'ZAIRCRA_MSG'
+                        number   = '006'
+                        severity = if_abap_behv_message=>severity-error )
+                         ) TO reported-zi_aircra_workorder.
+
+        CONTINUE.
+
+      ENDIF.
 
       <fs_workorders>-status = zif_aircra_constants=>gc_status_completed.
 
@@ -140,7 +184,125 @@ CLASS lhc_ZI_AIRCRA_WORKORDER IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD ValidateEstimateCost.
+
+    READ ENTITIES OF zi_aircra_workorder IN LOCAL MODE
+    ENTITY zi_aircra_workorder
+    ALL FIELDS
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_workorders).
+
+
+    LOOP AT lt_workorders ASSIGNING FIELD-SYMBOL(<fs_workorders>).
+
+      IF <fs_workorders>-est_cost IS INITIAL
+      OR <fs_workorders>-est_cost <= 0.
+
+        APPEND VALUE #( %tky = <fs_workorders>-%tky ) TO failed-zi_aircra_workorder.
+
+        APPEND VALUE #(
+            %tky = <fs_workorders>-%tky
+            %msg = new_message(
+                        id       = 'ZAIRCRA_MSG'
+                        number   = '001'
+                        severity = if_abap_behv_message=>severity-error )
+                         ) TO reported-zi_aircra_workorder.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+
+  METHOD ValidateAircraft.
+
+    READ ENTITIES OF zi_aircra_workorder IN LOCAL MODE
+    ENTITY zi_aircra_workorder
+    ALL FIELDS
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_workorders).
+
+
+    LOOP AT lt_workorders ASSIGNING FIELD-SYMBOL(<fs_workorders>).
+
+      IF <fs_workorders>-ac_type IS INITIAL.
+
+        APPEND VALUE #( %tky = <fs_workorders>-%tky ) TO failed-zi_aircra_workorder.
+
+        APPEND VALUE #(
+            %tky = <fs_workorders>-%tky
+            %msg = new_message(
+                        id       = 'ZAIRCRA_MSG'
+                        number   = '003'
+                        severity = if_abap_behv_message=>severity-error )
+                         ) TO reported-zi_aircra_workorder.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+
+  METHOD ValidateComponent.
+
+    READ ENTITIES OF zi_aircra_workorder IN LOCAL MODE
+    ENTITY zi_aircra_workorder
+    ALL FIELDS
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_workorders).
+
+
+    LOOP AT lt_workorders ASSIGNING FIELD-SYMBOL(<fs_workorders>).
+
+      IF <fs_workorders>-component_id IS INITIAL.
+
+        APPEND VALUE #( %tky = <fs_workorders>-%tky ) TO failed-zi_aircra_workorder.
+
+        APPEND VALUE #(
+            %tky = <fs_workorders>-%tky
+            %msg = new_message(
+                        id       = 'ZAIRCRA_MSG'
+                        number   = '004'
+                        severity =  if_abap_behv_message=>severity-error )
+                         ) TO reported-zi_aircra_workorder.
+
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+
+  METHOD ValidateScheduleDate.
+
+    READ ENTITIES OF zi_aircra_workorder IN LOCAL MODE
+    ENTITY zi_aircra_workorder
+    ALL FIELDS
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_workorders).
+
+
+    LOOP AT lt_workorders ASSIGNING FIELD-SYMBOL(<fs_workorders>).
+
+      IF <fs_workorders>-schedule_date < cl_abap_context_info=>get_system_date( ).
+
+        APPEND VALUE #( %tky = <fs_workorders>-%tky ) TO failed-zi_aircra_workorder.
+
+        APPEND VALUE #(
+            %tky = <fs_workorders>-%tky
+            %msg = new_message(
+                        id       = 'ZAIRCRA_MSG'
+                        number   = '002'
+                        severity = if_abap_behv_message=>severity-error )
+                         ) TO reported-zi_aircra_workorder.
+
+      ENDIF.
+
+    ENDLOOP.
+
   ENDMETHOD.
 
 ENDCLASS.

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZAIRCRA_MSG</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Aircraft Maintenance Messages</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Estimated Cost must be greater than zero.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Scheduled date cannot be in the past.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Aircraft Type is mandatory.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Component is mandatory.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Only NEW work orders can be approved.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Only APPROVED work orders can be completed.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Work Order approved successfully.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZAIRCRA_MSG</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Work Order completed successfully.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

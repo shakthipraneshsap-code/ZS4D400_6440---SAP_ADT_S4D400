@@ -11,6 +11,7 @@ etag master last_changed_at
   update;
   delete;
 
+
   field ( readonly )
   workorder_uuid,
   created_by,
@@ -18,14 +19,28 @@ etag master last_changed_at
   last_changed_by,
   last_changed_at;
 
+
   determination SetDefaultValues
   on modify { create; }
 
   validation ValidateEstimateCost
   on save { create; update; }
 
-  action Approve result [1] $self;
+  validation ValidateScheduleDate
+  on save { create; update; }
 
-  action Complete result [1] $self;
+  validation ValidateAircraft
+  on save { create; update; }
+
+  validation ValidateComponent
+  on save { create; update; }
+
+
+
+  //  action Approve result [1] $self;
+  action ( features : instance ) Approve result [1] $self;
+
+  //  action Complete result [1] $self;
+  action ( features : instance ) Complete result [1] $self;
 
 }
