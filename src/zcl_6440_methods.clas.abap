@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_6440_methods IMPLEMENTATION.
+CLASS ZCL_6440_METHODS IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

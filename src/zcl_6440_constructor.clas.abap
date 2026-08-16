@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_6440_constructor IMPLEMENTATION.
+CLASS ZCL_6440_CONSTRUCTOR IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

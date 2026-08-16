@@ -17,7 +17,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_insert_zaircra_maint IMPLEMENTATION.
+CLASS ZCL_INSERT_ZAIRCRA_MAINT IMPLEMENTATION.
+
 
   METHOD if_oo_adt_classrun~main.
 
@@ -44,6 +45,7 @@ CLASS zcl_insert_zaircra_maint IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
+
 
   METHOD create_sample_records.
     DATA: lt_data  TYPE STANDARD TABLE OF zaircra_maint,
@@ -101,5 +103,4 @@ CLASS zcl_insert_zaircra_maint IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
-
 ENDCLASS.

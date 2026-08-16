@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_insert_zaircra_acft IMPLEMENTATION.
+CLASS ZCL_INSERT_ZAIRCRA_ACFT IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_6440_itab IMPLEMENTATION.
+CLASS ZCL_6440_ITAB IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

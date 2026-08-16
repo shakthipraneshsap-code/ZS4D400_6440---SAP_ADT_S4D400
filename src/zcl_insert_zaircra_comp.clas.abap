@@ -14,7 +14,9 @@ CLASS zcl_insert_zaircra_comp DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_insert_zaircra_comp IMPLEMENTATION.
+
+CLASS ZCL_INSERT_ZAIRCRA_COMP IMPLEMENTATION.
+
 
   METHOD if_oo_adt_classrun~main.
 
@@ -36,5 +38,4 @@ CLASS zcl_insert_zaircra_comp IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
-
 ENDCLASS.

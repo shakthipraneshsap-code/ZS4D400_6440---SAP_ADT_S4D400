@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_6440_debug IMPLEMENTATION.
+CLASS ZCL_6440_DEBUG IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

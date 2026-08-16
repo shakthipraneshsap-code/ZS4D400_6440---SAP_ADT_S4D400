@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_6440_eml IMPLEMENTATION.
+CLASS ZCL_6440_EML IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

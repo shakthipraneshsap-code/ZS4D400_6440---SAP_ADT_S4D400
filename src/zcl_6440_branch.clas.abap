@@ -12,7 +12,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_6440_branch IMPLEMENTATION.
+CLASS ZCL_6440_BRANCH IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
